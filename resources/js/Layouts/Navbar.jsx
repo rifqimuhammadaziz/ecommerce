@@ -16,10 +16,11 @@ export default function Navbar() {
 
                     <div className="flex item-center gap-x-6">
                         <NavLink href='/'>Home</NavLink>
-                        <NavLink href='/dashboard'>Dashboard</NavLink>
+                        <NavLink href='/products'>Product</NavLink>
                         {auth.user ? (
                             <>
                                 <DropdownMenu label={auth.user.name}>
+                                    <DropdownMenu.Link href='/dashboard'>Dashboard</DropdownMenu.Link>
                                     <DropdownMenu.Link href='/profile'>Profile</DropdownMenu.Link>
                                     <DropdownMenu.Link href='/cart'>Your Cart</DropdownMenu.Link>
                                     <DropdownMenu.Link href='/history'>History</DropdownMenu.Link>
