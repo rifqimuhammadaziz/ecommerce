@@ -39,7 +39,9 @@ function DropdownMenu({ label, children }) {
 
 
                     </MenuButton>
-                    <MenuItems className='bg-white rounded border absolute w-64 top-full right-0 overflow-hidden'>{children}</MenuItems>
+                    <MenuItems className='bg-white rounded-lg shadow-sm border absolute w-64 top-full right-0 overflow-hidden'>
+                        {children}
+                    </MenuItems>
                 </>
             )}
         </Menu>
