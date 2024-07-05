@@ -3,6 +3,7 @@ import React from 'react'
 import Container from '@/Components/Container';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import NavLink from '@/Components/NavLink';
+import DropdownMenu from '@/Components/DropdownMenu';
 
 export default function Navbar() {
     const { auth } = usePage().props;
@@ -18,7 +19,12 @@ export default function Navbar() {
                         <NavLink href='/dashboard'>Dashboard</NavLink>
                         {auth.user ? (
                             <>
-                                <NavLink href='/profile'>{auth.user.name}</NavLink>
+                                <DropdownMenu label={auth.user.name}>
+                                    <DropdownMenu.Link href='/profile'>Profile</DropdownMenu.Link>
+                                    <DropdownMenu.Link href='/cart'>Your Cart</DropdownMenu.Link>
+                                    <DropdownMenu.Link href='/history'>History</DropdownMenu.Link>
+                                    <DropdownMenu.Link href='/logout' method='post'>Logout</DropdownMenu.Link>
+                                </DropdownMenu>
                             </>
                         ) : (
                             <>

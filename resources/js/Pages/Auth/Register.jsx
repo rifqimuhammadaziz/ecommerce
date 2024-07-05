@@ -27,7 +27,7 @@ export default function Register() {
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Register" />
 
             <form onSubmit={submit}>
@@ -112,6 +112,8 @@ export default function Register() {
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </>
     );
 }
+
+GuestLayout.layout = page => <GuestLayout children={page} />
