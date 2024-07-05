@@ -1,8 +1,7 @@
-import React from 'react'
-import { Children } from 'react/cjs/react.production.min'
+import React from 'react';
 
 export default function Container({ children }) {
     return (
-        <div className='max-w-xl p-4'>{Children}</div>
+        <div className='max-w-screen-lg mx-auto p-4'>{children}</div>
     )
 }
