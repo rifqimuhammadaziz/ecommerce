@@ -1,5 +1,6 @@
 import Container from '@/Components/Container'
 import Header from '@/Components/Header';
+import Pagination from '@/Components/Pagination';
 import ProductItem from '@/Components/ProductItem';
 import App from '@/Layouts/App'
 import { Head } from '@inertiajs/react'
@@ -23,6 +24,7 @@ export default function Index(props) {
                     </div>
                     : null
                 }
+                <Pagination meta={meta} links={links}></Pagination>
             </Container>
         </div>
     )

@@ -18,7 +18,8 @@ class ProductController extends Controller
             ->with('category')
             ->when($request->category, fn($q, $v) => $q->whereBelongsTo(Category::where('slug', $v)->first()))
             ->select('id', 'price', 'slug', 'name', 'picture', 'category_id')
-            ->paginate(12);
+            ->paginate(12)
+            ->withQueryString();
 
         return inertia('Products/Index', [
             'products' => ProductResource::collection($products),
