@@ -29,12 +29,15 @@ function DropdownMenu({ label, children }) {
                         {label}
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            className={clsx('h-5 w-5', open && 'rotate-180 transition duration-200')}
-                            fill="none" viewBox="0 0 20 20"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
+                            className={clsx('h-5 w-5 transition duration-200', open && 'rotate-180')}
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
                         >
-                            <path fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                            <path
+                                fillRule="evenodd"
+                                clipRule="evenodd"
+                                d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                            />
                         </svg>
 
 

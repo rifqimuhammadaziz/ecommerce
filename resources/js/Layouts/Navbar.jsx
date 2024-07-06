@@ -6,7 +6,7 @@ import NavLink from '@/Components/NavLink';
 import DropdownMenu from '@/Components/DropdownMenu';
 
 export default function Navbar() {
-    const { auth } = usePage().props;
+    const { auth, categories_global } = usePage().props;
 
     return (
         <nav className='bg-white border-b'>
@@ -17,6 +17,11 @@ export default function Navbar() {
                     <div className="flex item-center gap-x-6">
                         <NavLink href='/'>Home</NavLink>
                         <NavLink href='/products'>Product</NavLink>
+                        <DropdownMenu label={'Categories'}>
+                            {categories_global.map(category => (
+                                <DropdownMenu.Link key={category.slug} href={`/products?category=${category.slug}`}>{category.name}</DropdownMenu.Link>
+                            ))}
+                        </DropdownMenu>
                         {auth.user ? (
                             <>
                                 <DropdownMenu label={auth.user.name}>
