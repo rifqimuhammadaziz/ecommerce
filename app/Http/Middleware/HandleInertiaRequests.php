@@ -34,7 +34,7 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request): array
     {
         // Cache::forget('categories_navbar');
-        Cache::flush();
+        // Cache::flush();
         $cartBelongsToRequestUser = Cart::whereBelongsTo($request->user())->whereNull('paid_at')->count();
         return [
             ...parent::share($request),

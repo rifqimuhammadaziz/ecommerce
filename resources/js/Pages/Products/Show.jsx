@@ -1,12 +1,18 @@
+import React from 'react'
 import Button from '@/Components/Button'
 import Container from '@/Components/Container'
-import PrimaryButton from '@/Components/PrimaryButton'
 import App from '@/Layouts/App'
 import { numberFormat } from '@/Libs/Helper'
 import { Head, Link } from '@inertiajs/react'
-import React from 'react'
+import toast from 'react-hot-toast'
+import { Inertia } from '@inertiajs/inertia'
 
 export default function Show({ product }) {
+    const addToCart = () => {
+        Inertia.post(route('cart.store', product), {}, {
+            onSuccess: () => toast.success('success'),
+        });
+    }
     return (
         <div>
             <Head title={product.name} />
@@ -26,7 +32,7 @@ export default function Show({ product }) {
                             </div>
                         </div>
 
-                        <Button>Add to Cart</Button>
+                        <Button onClick={addToCart}>Add to Cart</Button>
                     </div>
                 </div>
             </Container >
