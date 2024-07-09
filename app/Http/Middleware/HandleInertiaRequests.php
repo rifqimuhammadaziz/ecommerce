@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -34,6 +35,7 @@ class HandleInertiaRequests extends Middleware
     {
         // Cache::forget('categories_navbar');
         Cache::flush();
+        $cartBelongsToRequestUser = Cart::whereBelongsTo($request->user())->whereNull('paid_at')->count();
         return [
             ...parent::share($request),
             'auth' => [
@@ -45,7 +47,9 @@ class HandleInertiaRequests extends Middleware
             ],
             'categories_global' => Cache::rememberForever('categories_navbar', fn() => Category::whereHas('products')->get()->map(fn($q) => [
                 'name' => $q->name,
-            ]))
+                'slug' => $q->slug
+            ])),
+            'carts_global_count' => $request->user() ? Cache::rememberForever('carts_global_count', fn() => $cartBelongsToRequestUser) : null,
         ];
     }
 }
