@@ -31,7 +31,7 @@ export default function Navbar() {
                                     <DropdownMenu.Link href='/history'>History</DropdownMenu.Link>
                                     <DropdownMenu.Link href='/logout' method='post'>Logout</DropdownMenu.Link>
                                 </DropdownMenu>
-                                <NavLink className='flex items-center gap-x-2' href='/cart'>
+                                <NavLink className='flex items-center gap-x-2' href='/carts'>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"

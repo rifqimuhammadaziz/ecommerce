@@ -15,7 +15,9 @@ Route::resource('products', ProductController::class);
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
+    Route::get('carts', [CartController::class, 'index'])->name('cart');
     Route::post('carts/add-to-cart/{product:slug}', [CartController::class, 'store'])->name('cart.store');
+    Route::delete('carts/delete/{cart}', [CartController::class, 'destroy'])->name('cart.delete');
 });
 
 require __DIR__ . '/auth.php';
