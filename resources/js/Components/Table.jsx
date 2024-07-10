@@ -2,7 +2,7 @@ import clsx from "clsx"
 
 function Table({ children }) {
     return (
-        <div className="relative bg-white overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="relative bg-white overflow-x-auto">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                 {children}
             </table>
