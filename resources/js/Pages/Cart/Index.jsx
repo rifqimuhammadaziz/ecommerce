@@ -1,6 +1,6 @@
-import ButtonLink from '@/Components/ButtonLink'
 import Card from '@/Components/Card'
 import Container from '@/Components/Container'
+import DropdownMenu from '@/Components/DropdownMenu'
 import Header from '@/Components/Header'
 import Table from '@/Components/Table'
 import App from '@/Layouts/App'
@@ -80,7 +80,12 @@ export default function Index({ carts }) {
                 </Card>
 
                 <div className="mt-4 flex justify-end">
-                    <ButtonLink href='/'>Pilih metode pembayaran</ButtonLink>
+                    <DropdownMenu buttonClassName='bg-blue-600 text-white px-4 py-2 rounded-lg mb-2' label='Payment method'>
+                        <DropdownMenu.Link href=''>Gopay</DropdownMenu.Link>
+                        <DropdownMenu.Divider />
+                        <DropdownMenu.Link href=''>BCA Virtual Account</DropdownMenu.Link>
+                        <DropdownMenu.Link href=''>BNI Virtual Account</DropdownMenu.Link>
+                    </DropdownMenu>
                 </div>
             </Container>
         </div>

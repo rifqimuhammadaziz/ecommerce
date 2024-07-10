@@ -20,12 +20,12 @@ function Link({ href, children, ...props }) {
     )
 }
 
-function DropdownMenu({ label, children }) {
+function DropdownMenu({ buttonClassName = '', label, children }) {
     return (
         <Menu className='relative' as='div'>
             {({ open }) => (
                 <>
-                    <MenuButton className='flex items-center gap-x-2'>
+                    <MenuButton className={clsx(buttonClassName, 'flex items-center gap-x-2')}>
                         {label}
                         <svg
                             className={clsx('h-5 w-5 transition duration-200', open && 'rotate-180')}
@@ -45,5 +45,10 @@ function DropdownMenu({ label, children }) {
     )
 }
 
+function Divider() {
+    return <div className='bg-gray-200 my-1 w-full block h-px' />
+}
+
 DropdownMenu.Link = Link
+DropdownMenu.Divider = Divider
 export default DropdownMenu;
