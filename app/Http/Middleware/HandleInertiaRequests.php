@@ -33,9 +33,7 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        // Cache::forget('categories_navbar');
-        // Cache::flush();
-        $cartBelongsToRequestUser = Cart::whereBelongsTo($request->user())->whereNull('paid_at')->count();
+        $carts_global_count = $request->user() ? Cache::rememberForever('carts_global_count', fn() => Cart::whereBelongsTo($request->user())->whereNull('paid_at')->count()) : null;
         return [
             ...parent::share($request),
             'auth' => [
@@ -45,11 +43,11 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'categories_global' => Cache::rememberForever('categories_navbar', fn() => Category::whereHas('products')->get()->map(fn($q) => [
+            'categories_global' => Cache::rememberForever('categories_global', fn() => Category::whereHas('products')->get()->map(fn($q) => [
                 'name' => $q->name,
                 'slug' => $q->slug
             ])),
-            'carts_global_count' => $request->user() ? Cache::rememberForever('carts_global_count', fn() => $cartBelongsToRequestUser) : null,
+            'carts_global_count' => $carts_global_count,
         ];
     }
 }
