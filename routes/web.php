@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -18,6 +19,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('carts', [CartController::class, 'index'])->name('cart');
     Route::post('carts/add-to-cart/{product:slug}', [CartController::class, 'store'])->name('cart.store');
     Route::delete('carts/delete/{cart}', [CartController::class, 'destroy'])->name('cart.delete');
+
+    Route::post('invoice', [InvoiceController::class, 'store'])->name('invoice.store');
 });
 
 require __DIR__ . '/auth.php';

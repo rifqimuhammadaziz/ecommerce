@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->double('gross_amount');
             $table->string('status')->default(InvoiceStatus::PENDING->value);
             $table->json('cart_ids');
-            $table->json('payment_info');
+            $table->json('payment_info')->nullable();
             $table->string('payment_type')->nullable();
             $table->dateTime('succeeded_at')->nullable();
             $table->timestamps();
