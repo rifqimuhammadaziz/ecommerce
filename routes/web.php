@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('carts/delete/{cart}', [CartController::class, 'destroy'])->name('cart.delete');
 
     Route::post('invoice', [InvoiceController::class, 'store'])->name('invoice.store');
+    Route::get('invoice/{invoice:order_id}', [InvoiceController::class, 'show'])->name('invoice.show');
 });
 
 require __DIR__ . '/auth.php';
