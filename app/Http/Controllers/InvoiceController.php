@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InvoiceResource;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class InvoiceController extends Controller
     {
         $total = (int) round($request->total);
         $cart_ids = $request->collect('carts')->pluck('id');
-        $order_id = 'order' . '-2024-' . $request->user()->id . '-' . $cart_ids->implode('');
+        $order_id = 'order' . '2222' . $request->user()->id . '-' . $cart_ids->implode('');
         // $order_id = 'order' . now()->format('Y') . $request->user()->id . $cart_ids->implode('');
 
         $invoiceExists = Invoice::where('order_id', $order_id)->firstOr(fn() => false);
@@ -45,10 +46,30 @@ class InvoiceController extends Controller
                 ]),
             ];
 
+            if ($request->payment_type == 'bank_transfer') {
+                $data = [
+                    ...$data,
+                    'bank_transfer' => [
+                        'bank' => $request->bank,
+                    ]
+                ];
+            }
+
             $response = Http::withBasicAuth(config('services.midtrans.server_key') . ':', '')
                 ->post('https://api.sandbox.midtrans.com/v2/charge', $data);
 
-            dd($response->json());
+            $body = $response->json();
+
+            $invoice->update([
+                'payment_info' => [
+                    'qr_code' => $request->payment_type == 'gopay' ? $body['actions'][0]['url'] : null,
+                    'bank' => $request->payment_type !== 'gopay' ? [
+                        'name' => $body['va_numbers'][0]['bank'],
+                        'va_number' => $body['va_numbers'][0]['va_number'],
+                    ] : null,
+                ]
+            ]);
+            // dd($response->json());
             $response->json();
         }
 
@@ -57,6 +78,9 @@ class InvoiceController extends Controller
 
     public function show(Invoice $invoice)
     {
-        return $invoice;
+        // return $invoice;
+        return inertia('Invoice/Show', [
+            'invoice' => new InvoiceResource($invoice)
+        ]);
     }
 }
