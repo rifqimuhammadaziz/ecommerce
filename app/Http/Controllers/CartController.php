@@ -36,7 +36,7 @@ class CartController extends Controller
         // Cache::flush();
         Cache::forget('carts_global_count');
 
-        return back();
+        return redirect('/carts');
     }
 
     public function destroy(Cart $cart)
