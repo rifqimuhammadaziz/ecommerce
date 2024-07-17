@@ -6,8 +6,9 @@ import { numberFormat } from '@/Libs/Helper'
 import { Head, Link } from '@inertiajs/react'
 import toast from 'react-hot-toast'
 import { Inertia } from '@inertiajs/inertia'
+import ButtonLink from '@/Components/ButtonLink'
 
-export default function Show({ product }) {
+export default function Show({ product, auth, isProductBought }) {
     const addToCart = () => {
         Inertia.post(route('cart.store', product), {}, {
             onSuccess: () => toast.success('success'),
@@ -31,8 +32,12 @@ export default function Show({ product }) {
                                 <sup>Rp</sup> {numberFormat(product.price)}
                             </div>
                         </div>
+                        {auth.user ? <>
+                            {isProductBought && < ButtonLink href='/products/me'> Already Bought </ButtonLink>}
+                        </> :
+                            <Button onClick={addToCart}>Add to Cart</Button>
+                        }
 
-                        <Button onClick={addToCart}>Add to Cart</Button>
                     </div>
                 </div>
             </Container >
