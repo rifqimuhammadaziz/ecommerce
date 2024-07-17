@@ -37,7 +37,6 @@ export default function Show({ product, auth, isProductBought }) {
                         </> :
                             <Button onClick={addToCart}>Add to Cart</Button>
                         }
-
                     </div>
                 </div>
             </Container >
