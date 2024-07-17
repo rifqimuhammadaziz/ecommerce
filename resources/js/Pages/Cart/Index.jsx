@@ -19,7 +19,7 @@ export default function Index({ carts }) {
 
     const subtotal = carts.reduce((acc, cart) => acc + cart.price, 0);
     const ppn = (11 / 100) * subtotal;
-    let total = ppn + subtotal;
+    let total = carts.reduce((acc, cart) => acc + cart.price_tax, 0);
 
     return (
         <div>
@@ -69,7 +69,7 @@ export default function Index({ carts }) {
                                     <tr className='bg-blue-50 text-blue-900 font-semibold'>
                                         <td></td>
                                         <Table.Td>Total</Table.Td>
-                                        <Table.Td className='text-right'>Rp {numberFormat(carts.reduce((acc, cart) => acc + cart.price, 0) + ppn)}</Table.Td>
+                                        <Table.Td className='text-right'>Rp {numberFormat(total)}</Table.Td>
                                         <td></td>
                                     </tr>
                                 </>

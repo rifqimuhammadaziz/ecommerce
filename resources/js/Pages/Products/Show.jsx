@@ -33,10 +33,11 @@ export default function Show({ product, auth, isProductBought }) {
                             </div>
                         </div>
                         {auth.user ? <>
-                            {isProductBought && < ButtonLink href='/products/me'> Already Bought </ButtonLink>}
-                        </> :
-                            <Button onClick={addToCart}>Add to Cart</Button>
-                        }
+                            {isProductBought ?
+                                < ButtonLink href='/products/me'> Already Bought </ButtonLink>
+                                :
+                                <Button onClick={addToCart}>Add to Cart</Button>}
+                        </> : <></>}
                     </div>
                 </div>
             </Container >

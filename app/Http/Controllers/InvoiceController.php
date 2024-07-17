@@ -12,7 +12,7 @@ class InvoiceController extends Controller
 {
     public function store(Request $request)
     {
-        $total = (int) round($request->total, 0); // 147025
+        $total = (int) $request->total;
         $cart_ids = $request->collect('carts')->pluck('id');
         // $order_id = 'order' . '2222' . $request->user()->id . '-' . $cart_ids->implode('');
         $order_id = 'order' . now()->format('Y') . $request->user()->id . $cart_ids->implode('');
@@ -42,7 +42,7 @@ class InvoiceController extends Controller
                 ],
                 'item_details' => $request->collect('carts')->map(fn($item) => [
                     'id' => $item['id'],
-                    'price' => (int) round((11 / 100) * $item['price'], 0) + $item['price'], // 147026
+                    'price' => (int) (round((11 / 100) * $item['price'], 0) + $item['price']),
                     'quantity' => 1,
                     'name' => $item['product']['name'],
                 ]),
