@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\Invoice;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -21,18 +22,23 @@ class PaymentNotificationController extends Controller
             ]);
 
             // Update cart
-            Cart::whereIn('id', $invoice->cart_ids)->update([
+            $cartQuery = Cart::query()->whereIn('id', $invoice->cart_ids);
+            $cartQuery->update([
                 'paid_at' => now(),
             ]);
 
-            Cache::forget('carts_global_count');
+            // attach paid product to user_product table
+            $product_ids = $cartQuery->pluck('product_id');
+            $user = User::find($invoice->user_id);
+            $user->products()->attach($product_ids);
+
+            // Cache::forget('carts_global_count');
+            Cache::flush();
         } else {
             $invoice->update([
                 'payment_info' => 'HASH KEY TIDAK MATCH'
             ]);
         }
-        // $invoice->update([
-        //     'payment_info' => 'API BERMASALAH'
-        // ]);
+
     }
 }

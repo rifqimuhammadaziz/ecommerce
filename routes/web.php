@@ -9,6 +9,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+Route::get('products/me', [ProductController::class, 'mine'])->middleware('auth')->name('products.mine');
 Route::resource('products', ProductController::class);
 
 Route::middleware(['auth'])->group(function () {

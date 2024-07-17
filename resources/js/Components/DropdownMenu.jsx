@@ -36,7 +36,7 @@ function DropdownMenu({ buttonClassName = '', label, children }) {
                         </svg>
 
                     </MenuButton>
-                    <MenuItems className='bg-white rounded-lg shadow-sm border absolute w-64 top-full right-0 overflow-hidden'>
+                    <MenuItems className='z-50 bg-white py-1 rounded-lg shadow-sm border absolute w-64 top-full right-0 overflow-hidden'>
                         {children}
                     </MenuItems>
                 </>
