@@ -1,9 +1,15 @@
 import Container from '@/Components/Container'
 import App from '@/Layouts/App'
+import { Inertia } from '@inertiajs/inertia'
 import { Head } from '@inertiajs/react'
 import React from 'react'
 
-export default function Show({ invoice }) {
+export default function Show({ auth, invoice }) {
+    Echo.private(`invoice.paid.${auth.user.id}`).listen('InvoicePaid', ({ invoice }) => {
+        if (invoice.status == 'settlement') {
+            Inertia.get('/products/me')
+        }
+    })
     return (
         <div>
             <Head title={`Your order - ${invoice.order_id}`} />
