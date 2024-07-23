@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentNotificationController;
@@ -14,6 +15,7 @@ Route::resource('products', ProductController::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::get('history', HistoryController::class)->name('history');
 
     Route::controller(CartController::class)->group(function () {
         Route::get('carts', 'index')->name('cart');

@@ -27,7 +27,7 @@ export default function Navbar() {
                                 <DropdownMenu label={auth.user.name}>
                                     <DropdownMenu.Link href='/dashboard'>Dashboard</DropdownMenu.Link>
                                     <DropdownMenu.Link href='/profile'>Profile</DropdownMenu.Link>
-                                    <DropdownMenu.Link href='/cart'>Your Cart</DropdownMenu.Link>
+                                    <DropdownMenu.Link href='/carts'>Your Cart</DropdownMenu.Link>
                                     <DropdownMenu.Link href='/products/me'>Your Products</DropdownMenu.Link>
                                     <DropdownMenu.Link href='/history'>History</DropdownMenu.Link>
                                     <DropdownMenu.Link href='/logout' method='post'>Logout</DropdownMenu.Link>

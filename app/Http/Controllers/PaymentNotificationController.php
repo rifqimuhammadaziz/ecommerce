@@ -13,9 +13,13 @@ class PaymentNotificationController extends Controller
 {
     public function hit(Request $request)
     {
+        // get invoice by order id
         $invoice = Invoice::where('order_id', $request->order_id)->first();
+
         // SHA512(order_id+status_code+gross_amount+ServerKey)
         $signature_key = hash('sha512', $request->order_id . $request->status_code . $invoice->gross_amount . '.00' . config('services.midtrans.server_key'));
+
+        // check response from midtrans
         if ($request->signature_key == $signature_key) {
             if ($request->transaction_status == 'settlement') {
                 // Update invoice
@@ -35,6 +39,7 @@ class PaymentNotificationController extends Controller
                 $user = User::find($invoice->user_id);
                 $user->products()->attach($product_ids);
 
+                // broadcast event to handle auto redirect after paid
                 broadcast(new InvoicePaid($invoice));
                 Cache::flush();
             }
